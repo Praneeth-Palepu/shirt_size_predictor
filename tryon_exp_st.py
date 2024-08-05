@@ -4,11 +4,9 @@ import mediapipe as mp
 from PIL import Image
 from matplotlib import pyplot as plt
 import math
-import torch
 import warnings
 import os
 from pathlib import Path
-import pandas as pd
 import streamlit as st
 
 warnings.filterwarnings('ignore')
