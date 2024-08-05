@@ -1,4 +1,3 @@
-import cv2
 import numpy as np
 import mediapipe as mp
 from PIL import Image
@@ -37,8 +36,8 @@ if file is not None:
     # image = cv2.resize(image, (1280, 960))
     image_original = Image.fromarray(image)
     #image_disp = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-    image_rgb = cv2.resize(image, (512, 512))
-    image_rgb = cv2.cvtColor(image_rgb, cv2.COLOR_BGR2RGB)
+    image_rgb = Image.resize(Image.fromarray(image), (512, 512)).convert("RGB")
+    #image_rgb = cv2.cvtColor(image_rgb, cv2.COLOR_BGR2RGB)
 
     # Process the image and find the pose landmarks.
     results = pose.process(image_rgb)
@@ -85,8 +84,8 @@ if file is not None:
     
         # avg_y_shoulder = int((left_shoulder_y + right_shoulder_y)/2)
         
-        print(f"Left dimensions: {(left_shoulder_x, left_shoulder_y)}")
-        print(f"Right dimensions: {(right_shoulder_x, right_shoulder_y)}")
+        # print(f"Left dimensions: {(left_shoulder_x, left_shoulder_y)}")
+        # print(f"Right dimensions: {(right_shoulder_x, right_shoulder_y)}")
         
         pix_dist = math.sqrt(((right_shoulder_x - left_shoulder_x)**2) + ((right_shoulder_y - left_shoulder_y)**2))
         # pix_dist_hip = math.sqrt(((right_hip_x - left_hip_x)**2) + ((right_hip_y - left_hip_y)**2))
@@ -108,7 +107,7 @@ if file is not None:
         
         #cv2.line(image_rgb, (left_shoulder_x, left_shoulder_y), (right_shoulder_x, right_shoulder_y), (0, 255, 0), 3)
     
-        img_disp = cv2.resize(cv2.cvtColor(image_rgb, cv2.COLOR_BGR2RGB), (image_original.size))
+        img_disp = Image.resize(Image.fromarray(image_rgb).convert("RGB"), image_original.size)
         
         # cv2.putText(img_disp, f"Shirt Size = {round(act_dist, 2)}", (225, 225), cv2.FONT_HERSHEY_COMPLEX, 2, (255, 200, 127), 3, cv2.LINE_AA)
         text_content = f"Shirt Size: {round(act_dist, 2)}"
