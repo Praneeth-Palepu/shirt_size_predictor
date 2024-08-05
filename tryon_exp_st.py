@@ -7,6 +7,7 @@ import warnings
 import os
 from pathlib import Path
 import streamlit as st
+import cv2
 
 warnings.filterwarnings('ignore')
 
